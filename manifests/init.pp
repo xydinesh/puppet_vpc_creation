@@ -43,7 +43,7 @@
 # Copyright 2017 Your name here, unless otherwise noted.
 #
 class vpc_creation {
-  notify { "Hello vpc_creation": }
+  notify { 'Hello vpc_creation': }
 
   ec2_instance { 'instance-name':
     ensure        => present,
