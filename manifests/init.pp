@@ -42,13 +42,13 @@
 #
 # Copyright 2017 Your name here, unless otherwise noted.
 #
-class vpc_creation {
-  notify { 'Hello vpc_creation': }
-
-  ec2_instance { 'instance-name':
-    ensure        => present,
-    region        => 'us-west-1',
-    image_id      => 'ami-123456', # you need to select your own AMI
-    instance_type => 't1.micro',
+class vpc_creation (
+  $region,
+  $cidr_block,
+){
+  ec2_vpc { 'nibiru_vpc':
+    ensure     => present,
+    region     => $region,
+    cidr_block => $cidr_block
   }
 }
