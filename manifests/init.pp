@@ -43,5 +43,12 @@
 # Copyright 2017 Your name here, unless otherwise noted.
 #
 class vpc_creation {
-  notify { 'Hello vpc_creation': } 
+  notify { "Hello vpc_creation": }
+
+  ec2_instance { 'instance-name':
+    ensure        => present,
+    region        => 'us-west-1',
+    image_id      => 'ami-123456', # you need to select your own AMI
+    instance_type => 't1.micro',
+  }
 }

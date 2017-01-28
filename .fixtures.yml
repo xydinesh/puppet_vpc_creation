@@ -1,0 +1,10 @@
+# For puppetlabs_spec_helper documentation - see http://github.com/puppetlabs/puppetlabs_spec_helper
+---
+fixtures:
+  forge_modules:
+    aws: "puppetlabs/aws"
+  symlinks:
+    vpc_creation/files: "../../../../files"
+    vpc_creation/manifests: "../../../../manifests"
+    vpc_creation/templates: "../../../../templates"
+    vpc_creation/lib: "../../../../lib"
