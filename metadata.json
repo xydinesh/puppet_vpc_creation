@@ -1,0 +1,15 @@
+{
+  "name": "xydinesh-vpc_creation",
+  "version": "0.1.0",
+  "author": "xydinesh",
+  "summary": "Create full featured VPC on AWS",
+  "license": "Apache-2.0",
+  "source": "https://github.com/xydinesh/vpc_creation.git",
+  "project_page": "https://github.com/xydinesh/vpc_creation",
+  "issues_url": "https://github.com/xydinesh/vpc_creation/issues",
+  "dependencies": [
+    {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"}
+  ],
+  "data_provider": null
+}
+
