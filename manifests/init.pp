@@ -51,4 +51,53 @@ class vpc_creation (
     region     => $region,
     cidr_block => $cidr_block
   }
+
+  ec2_vpc_subnet { 'nibiru_subnet_1':
+    ensure            => present,
+    vpc               => 'nibiru_vpc',
+    region            => $region,
+    cidr_block        => '10.0.1.0/24',
+    availability_zone => 'us-east-2a',
+    route_table       => 'nibiru_routetable_1',
+  }
+
+  ec2_vpc_subnet { 'nibiru_subnet_2':
+    ensure            => present,
+    vpc               => 'nibiru_vpc',
+    region            => $region,
+    cidr_block        => '10.0.2.0/24',
+    availability_zone => 'us-east-2b',
+    route_table       => 'nibiru_routetable_2',
+  }
+
+  ec2_vpc_internet_gateway { 'nibiru_igw':
+    ensure => present,
+    region => $region,
+    vpc    => 'nibiru_vpc'
+  }
+
+  ec2_vpc_routetable { 'nibiru_routetable_1':
+    ensure => present,
+    vpc    => 'nibiru_vpc',
+    routes => [
+      {
+        destination_cidr_block => '10.0.0.0/16',
+        gateway                => 'local'
+      },{
+        destination_cidr_block => '0.0.0.0',
+        gateway                => 'nibiru_igw'
+      }
+    ],
+  }
+
+  ec2_vpc_routetable { 'nibiru_routetable_2':
+    ensure => present,
+    vpc    => 'nibiru_vpc',
+    routes => [
+      {
+        destination_cidr_block => '10.0.0.0/16',
+        gateway                => 'local'
+      }
+    ],
+  }
 }
