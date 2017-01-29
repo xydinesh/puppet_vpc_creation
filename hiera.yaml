@@ -1,0 +1,6 @@
+---
+datadir: data
+backends: yaml
+hierarchy:
+  - "%{environment}"
+  - "common"
