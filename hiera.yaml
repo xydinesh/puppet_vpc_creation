@@ -1,6 +1,10 @@
 ---
+version: 4
 datadir: data
-backends: yaml
 hierarchy:
-  - "%{environment}"
-  - "common"
+  - name: "Environment"
+    backend: yaml
+    path: "%{environment}"
+
+  - name: "common"
+    backend: yaml
