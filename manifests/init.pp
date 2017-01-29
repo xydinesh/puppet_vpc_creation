@@ -71,14 +71,15 @@ class vpc_creation (
   }
 
   ec2_vpc_internet_gateway { 'nibiru_igw':
-    ensure => present,
-    region => $region,
-    vpc    => 'nibiru_vpc'
+    ensure  => present,
+    region  => $region,
+    vpc     => 'nibiru_vpc',
   }
 
   ec2_vpc_routetable { 'nibiru_routetable_1':
     ensure => present,
     vpc    => 'nibiru_vpc',
+    region => $region,
     routes => [
       {
         destination_cidr_block => '10.0.0.0/16',
@@ -93,6 +94,7 @@ class vpc_creation (
   ec2_vpc_routetable { 'nibiru_routetable_2':
     ensure => present,
     vpc    => 'nibiru_vpc',
+    region => $region,
     routes => [
       {
         destination_cidr_block => '10.0.0.0/16',
