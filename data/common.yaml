@@ -1,4 +1,5 @@
 ---
 vpc_creation::region: 'us-east-2'
 vpc_creation::cidr_block: '10.0.0.0/16'
+vpc_creation::destroy::region: 'us-east-2'
 
