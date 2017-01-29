@@ -44,4 +44,13 @@ describe 'vpc_creation' do
       }]) }
   end
 
+  context 'with ec2_securitygroup' do
+    it { is_expected.to contain_ec2_securitygroup('nibiru_sec_group').with_region('us-east-2')}
+    it { is_expected.to contain_ec2_securitygroup('nibiru_sec_group').with_description('Nibiru V3 security group')}
+    it { is_expected.to contain_ec2_securitygroup('nibiru_sec_group').with_ingress([
+      {"protocol" => "tcp", "port" => "80", "cidr" => "0.0.0.0/0"},
+      {"protocol" => "tcp", "port" => "443", "cidr" => "0.0.0.0/0"}])
+    }
+  end
+
 end

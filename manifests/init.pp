@@ -71,9 +71,9 @@ class vpc_creation (
   }
 
   ec2_vpc_internet_gateway { 'nibiru_igw':
-    ensure  => present,
-    region  => $region,
-    vpc     => 'nibiru_vpc',
+    ensure => present,
+    region => $region,
+    vpc    => 'nibiru_vpc',
   }
 
   ec2_vpc_routetable { 'nibiru_routetable_1':
@@ -101,5 +101,20 @@ class vpc_creation (
         gateway                => 'local'
       }
     ],
+  }
+
+  ec2_securitygroup { 'nibiru_sec_group':
+    ensure      => present,
+    region      => $region,
+    description => 'Nibiru V3 security group',
+    ingress     => [{
+      protocol => 'tcp',
+      port     => '80',
+      cidr     => '0.0.0.0/0'
+    },{
+      protocol => 'tcp',
+      port     => '443',
+      cidr     => '0.0.0.0/0'
+    }]
   }
 }
