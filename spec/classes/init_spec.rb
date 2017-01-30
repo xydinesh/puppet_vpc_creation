@@ -38,19 +38,24 @@ describe 'vpc_creation' do
   context 'with ec2_vpc_routetable creation 2' do
     it { is_expected.to contain_ec2_vpc_routetable('nibiru_routetable_2').with_vpc('nibiru_vpc') }
     it { is_expected.to contain_ec2_vpc_routetable('nibiru_routetable_2').with_routes([
-      {
-        "destination_cidr_block" => "10.0.0.0/16",
-        "gateway"                => "local"
-      }]) }
+      { "destination_cidr_block" => "10.0.0.0/16", "gateway" => "local"},
+      { "destination_cidr_block" => "0.0.0.0/0", "gateway" => "nibiru_nat_instance"}
+    ])}
   end
 
   context 'with ec2_securitygroup' do
     it { is_expected.to contain_ec2_securitygroup('nibiru_sec_group').with_region('us-east-2')}
     it { is_expected.to contain_ec2_securitygroup('nibiru_sec_group').with_description('Nibiru V3 security group')}
     it { is_expected.to contain_ec2_securitygroup('nibiru_sec_group').with_ingress([
-      {"protocol" => "tcp", "port" => "80", "cidr" => "0.0.0.0/0"},
-      {"protocol" => "tcp", "port" => "443", "cidr" => "0.0.0.0/0"}])
+        {"protocol" => "tcp", "port" => "80", "cidr" => "0.0.0.0/0"},
+        {"protocol" => "tcp", "port" => "443", "cidr" => "0.0.0.0/0"}])
     }
+  end
+
+  context 'with nat instance creation' do
+    it { is_expected.to contain_ec2_instance('nibiru_nat_instance').with_region('us-east-2').with_subnet('nibiru_subnet_1').with_instance_type('t2.micro') }
+    it { is_expected.to contain_ec2_instance('nibiru_nat_instance').with_image_id('ami-36c29853').with_availability_zone('us-east-2a') }
+    it { is_expected.to contain_ec2_instance('nibiru_nat_instance').with_key_name('brain-surgery').with_associate_public_ip_address('true') }
   end
 
 end

@@ -99,7 +99,10 @@ class vpc_creation (
       {
         destination_cidr_block => '10.0.0.0/16',
         gateway                => 'local'
-      }
+      },{
+        destination_cidr_block => '0.0.0.0/0',
+        gateway                => 'nibiru_nat_instance'
+      },
     ],
   }
 
@@ -116,5 +119,16 @@ class vpc_creation (
       port     => '443',
       cidr     => '0.0.0.0/0'
     }]
+  }
+
+  ec2_instance { 'nibiru_nat_instance':
+    ensure                      => present,
+    instance_type               => 't2.micro',
+    region                      => $region,
+    subnet                      => 'nibiru_subnet_1',
+    image_id                    => 'ami-36c29853',
+    availability_zone           => 'us-east-2a',
+    key_name                    => 'brain-surgery',
+    associate_public_ip_address => true,
   }
 }
