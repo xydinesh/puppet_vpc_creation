@@ -129,6 +129,7 @@ class vpc_creation (
     image_id                    => 'ami-36c29853',
     availability_zone           => 'us-east-2a',
     key_name                    => 'brain-surgery',
+    security_groups             => ['nibiru_sec_group'],
     associate_public_ip_address => true,
   }
 }

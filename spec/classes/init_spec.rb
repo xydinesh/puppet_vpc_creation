@@ -55,7 +55,7 @@ describe 'vpc_creation' do
   context 'with nat instance creation' do
     it { is_expected.to contain_ec2_instance('nibiru_nat_instance').with_region('us-east-2').with_subnet('nibiru_subnet_1').with_instance_type('t2.micro') }
     it { is_expected.to contain_ec2_instance('nibiru_nat_instance').with_image_id('ami-36c29853').with_availability_zone('us-east-2a') }
-    it { is_expected.to contain_ec2_instance('nibiru_nat_instance').with_key_name('brain-surgery').with_associate_public_ip_address('true') }
+    it { is_expected.to contain_ec2_instance('nibiru_nat_instance').with_key_name('brain-surgery').with_associate_public_ip_address('true').with_security_groups(['nibiru_sec_group']) }
   end
 
 end
