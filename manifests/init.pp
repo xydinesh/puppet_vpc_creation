@@ -68,6 +68,7 @@ class vpc_creation (
     cidr_block        => '10.0.2.0/24',
     availability_zone => 'us-east-2b',
     route_table       => 'nibiru_routetable_2',
+    require           => Ec2_instance['nibiru_nat_instance']
   }
 
   ec2_vpc_internet_gateway { 'nibiru_igw':
@@ -92,10 +93,10 @@ class vpc_creation (
   }
 
   ec2_vpc_routetable { 'nibiru_routetable_2':
-    ensure => present,
-    vpc    => 'nibiru_vpc',
-    region => $region,
-    routes => [
+    ensure  => present,
+    vpc     => 'nibiru_vpc',
+    region  => $region,
+    routes  => [
       {
         destination_cidr_block => '10.0.0.0/16',
         gateway                => 'local'
@@ -104,6 +105,7 @@ class vpc_creation (
         gateway                => 'nibiru_nat_instance'
       },
     ],
+    require => Ec2_instance['nibiru_nat_instance']
   }
 
   ec2_securitygroup { 'nibiru_sec_group':
