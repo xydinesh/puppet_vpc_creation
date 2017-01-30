@@ -111,6 +111,7 @@ class vpc_creation (
   ec2_securitygroup { 'nibiru_sec_group':
     ensure      => present,
     region      => $region,
+    vpc         => 'nibiru_vpc',
     description => 'Nibiru V3 security group',
     ingress     => [{
       protocol => 'tcp',
