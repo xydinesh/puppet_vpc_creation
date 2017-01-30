@@ -5,6 +5,10 @@
 class vpc_creation::destroy (
   $region
 ){
+  ec2_instance { 'nibiru_nat_instance':
+    ensure => absent,
+    region => $region,
+  }~>
   ec2_securitygroup { 'nibiru_sec_group':
     ensure => absent,
     region => $region
