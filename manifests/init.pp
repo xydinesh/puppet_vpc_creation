@@ -133,5 +133,6 @@ class vpc_creation (
     key_name                    => 'brain-surgery',
     security_groups             => ['nibiru_sec_group'],
     associate_public_ip_address => true,
+    require                     => Ec2_securitygroup['nibiru_sec_group'],
   }
 }
